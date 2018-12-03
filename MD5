@@ -1,0 +1,13 @@
+26e9218f8914f0f7654753c1b5c6b09e *DESCRIPTION
+06d513627002d2c8cd1f0d449afda186 *NAMESPACE
+32e4c2f989ce1435434431265ff8cd75 *R/aGE.r
+e6d871c2e9bfb7927bd847bbaff29e75 *R/aGE_joint.r
+19164081d8c84971d179947192f7157a *R/cublic_splines.r
+cdb2b43b9254c60afd8b45e228297455 *R/sysdata.rda
+385b54da26852bec5f85ed840953434c *build/vignette.rds
+6200a4954a3b286774628fcb21e60ce7 *inst/doc/About.R
+09c805c4249d88d3ae80729c7185c89d *inst/doc/About.Rmd
+48ff03aa217b93f11390167773c97131 *inst/doc/About.html
+c8e6d28ee58c16772c4d7cb43bf5529c *man/aGE.Rd
+0af1baaa4a6d4fff999134472bc9e687 *man/aGE.joint.Rd
+09c805c4249d88d3ae80729c7185c89d *vignettes/About.Rmd

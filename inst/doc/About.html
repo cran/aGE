@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Tianzhong Yang, Han Chen, Peng Wei" />
+
+<meta name="date" content="2018-11-19" />
+
+<title>aGE package</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">aGE package</h1>
+<h4 class="author"><em>Tianzhong Yang, Han Chen, Peng Wei</em></h4>
+<h4 class="date"><em>2018-11-19</em></h4>
+
+
+
+<p>This package implements aGE tests, which is a data-adaptive set-based gene-environment interaction (GxE) test, specifically designed for rare variants.</p>
+<ul>
+<li>Works both on linux R and windows R</li>
+<li>See more in the paper: Yang T, et al. (2018) &lt;10.1002/sim.8037&gt;</li>
+</ul>
+<div id="advantage" class="section level2">
+<h2>Advantage</h2>
+<ul>
+<li>The method is able to control type 1 error rates when the environmental variable is a linear or nonlinear function of the outcome.</li>
+<li>Incorporate a wide range of tests, including burden test, variance component tests (rareGE), and beyond</li>
+<li>The test is adaptive to different directions of GxE effects and the different number of neutral varints, i.e., variants with no GxE effects.</li>
+<li>Works for both binary and continuous outcome</li>
+</ul>
+</div>
+<div id="model" class="section level2">
+<h2>Model</h2>
+<p>The model is <span class="math inline">\(g(\mu_i)= X_i\beta_0+ G_i\beta_1 + S_i\beta_2\)</span>,</p>
+<p>where <span class="math inline">\(g(\cdot)\)</span> is the link function, <span class="math inline">\(X_i\)</span> is the covariate matrix including the environmental variable, <span class="math inline">\(G_i\)</span> is the <span class="math inline">\(q \times q\)</span> genotype matrix and <span class="math inline">\(S_i\)</span> is the <span class="math inline">\(q \times q\)</span> GxE interaction matrix.</p>
+<p>The interaction test, the null hypothesis is that <span class="math inline">\(\beta_2=[\beta_{21},\ldots,\beta_{2q}]^T=[0,\ldots,0]^T.\)</span></p>
+<p>For joint test,the null hypothesis is that <span class="math inline">\(\beta_1=\beta_2=[0,\ldots,0]^T.\)</span></p>
+</div>
+<div id="installation" class="section level2">
+<h2>Installation</h2>
+<p>Other than CRAN, <a href="http://github.com/ytzhong/projects/">github</a> can be checked for most recent update.</p>
+<div id="install-from-github" class="section level3">
+<h3>Install from github</h3>
+<ul>
+<li>Step 1: download the aGE.version.tar.gz file into the local folder<br />
+</li>
+<li>Step 2: open R, and set the directory to this local folder</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="kw">setwd</span>(<span class="st">'local folder'</span>)</code></pre></div>
+<ul>
+<li>Step 3: install the package in R</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">'aGE.version.tar.gz'</span>,<span class="dt">repos=</span><span class="ot">NULL</span>,<span class="dt">type=</span><span class="st">'source'</span>)</code></pre></div>
+</div>
+</div>
+<div id="usage" class="section level2">
+<h2>Usage</h2>
+<p>Two functions are available: aGE and aGE.joint. The former performs adaptive GxE test and the later performs joint test for both genetic main and GxE effects. The details of inputs of the functions can be foound by typing ?aGE and ?aGE.joint in R command line.</p>
+<div id="a-simple-example" class="section level3">
+<h3>A simple example</h3>
+<p>A simple demonstration of the usage and output of the package. The simulation method is recommended to use for sample size <span class="math inline">\(&gt;\)</span> 500.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">     <span class="kw">library</span>(aGE)
+     <span class="kw">set.seed</span>(<span class="dv">12345</span>)
+     phenotype &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">50</span>),<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">50</span>))
+    genotype &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">g1=</span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">10</span>),<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">90</span>))),<span class="dt">g2=</span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">5</span>), <span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">95</span>))))
+    covariates &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Envir=</span><span class="kw">rnorm</span>(<span class="dv">100</span>), <span class="dt">Age=</span><span class="kw">rnorm</span>(<span class="dv">100</span>,<span class="dv">60</span>,<span class="dv">5</span>))
+    exD &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">Y=</span>phenotype, <span class="dt">G=</span>genotype, <span class="dt">X=</span>covariates)
+     <span class="kw">aGE</span>(<span class="dt">Y=</span>exD<span class="op">$</span>Y, <span class="dt">G=</span>exD<span class="op">$</span>G, <span class="dt">cov=</span>exD<span class="op">$</span>X, <span class="dt">model=</span><span class="st">'binomial'</span>, <span class="dt">nonparaE=</span>F, <span class="dt">stepwise=</span>F)  </code></pre></div>
+<pre><code>##       aGEsm1       aGEsm2       aGEsm3       aGEsm4       aGEsm5 
+##   0.02800000   0.11800000   0.11900000   0.17000000   0.16000000 
+##       aGEsm6        aGEsm aGEsm_fisher 
+##   0.19100000   0.05194805   0.10389610</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">     <span class="kw">aGE.joint</span>(<span class="dt">Y=</span>exD<span class="op">$</span>Y, <span class="dt">G=</span>exD<span class="op">$</span>G, <span class="dt">cov=</span>exD<span class="op">$</span>X, <span class="dt">model=</span><span class="st">'binomial'</span>, <span class="dt">nonparaE=</span>T, <span class="dt">DF=</span><span class="dv">5</span>, <span class="dt">method=</span><span class="st">'Simulation'</span>) </code></pre></div>
+<pre><code>##       aGEj1       aGEj2       aGEj3       aGEj4       aGEj5       aGEj6 
+##   0.4870000   0.2000000   0.2120000   0.2430000   0.2200000   0.2410000 
+##        aGEj   aGEj_minp aGEj_fisher 
+##   0.3316683   0.1198801   0.1228771</code></pre>
+<p>The stepwise option in aGE function is suggested for real-data GxE analysis, where a high genome-wide significant level is required. It performs Monte Carlo method with the number of permutation (B) equals 1,000 and then increase B gradually if small p-values are observed.</p>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

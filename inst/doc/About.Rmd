@@ -1,0 +1,65 @@
+---
+title: "aGE package"
+author: "Tianzhong Yang, Han Chen, Peng Wei"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This package implements aGE tests, which is a data-adaptive set-based gene-environment interaction (GxE) test, specifically designed for rare variants.  
+
+- Works both on linux R and windows R
+- See more in the paper: Yang T, et al. (2018) <10.1002/sim.8037>
+
+## Advantage
+- The method is able to control type 1 error rates when the environmental variable is a linear or nonlinear function of the outcome.
+- Incorporate a wide range of tests, including burden test, variance component tests (rareGE), and beyond
+- The test is adaptive to different directions of GxE effects and the different number of neutral varints, i.e., variants with no GxE effects.
+- Works for both binary and continuous outcome 
+
+## Model
+The model is $g(\mu_i)= X_i\beta_0+ G_i\beta_1 +  S_i\beta_2$, 
+
+where $g(\cdot)$ is the link function, $X_i$ is the covariate matrix including the environmental variable, $G_i$ is the $q \times q$ genotype matrix and $S_i$ is the $q \times q$ GxE interaction matrix. 
+
+The interaction test, the null hypothesis is that $\beta_2=[\beta_{21},\ldots,\beta_{2q}]^T=[0,\ldots,0]^T.$
+
+For joint test,the null hypothesis is that 
+$\beta_1=\beta_2=[0,\ldots,0]^T.$
+
+##Installation
+Other than CRAN, [github](http://github.com/ytzhong/projects/) can be checked for most recent update.
+
+###Install from github
+* Step 1: download the aGE.version.tar.gz file into the local folder  
+* Step 2: open R, and set the directory to this local folder    
+```{r, eval=F} 
+ setwd('local folder')
+ ```  
+ 
+* Step 3: install the package in R    
+```{r, eval=F}
+install.packages('aGE.version.tar.gz',repos=NULL,type='source')
+```
+
+##Usage
+Two functions are available: aGE and aGE.joint. The former performs adaptive GxE test and the later performs joint test for both genetic main and GxE effects. The details of inputs of the functions can be foound by typing ?aGE and ?aGE.joint in R command line. 
+
+###A simple example
+A simple demonstration of the usage and output of the package. The simulation method is recommended to use for sample size $>$ 500.
+```{r}
+     library(aGE)
+     set.seed(12345)
+     phenotype <- c(rep(1,50),rep(0,50))
+    genotype <- data.frame(g1=sample(c(rep(1,10),rep(0,90))),g2=sample(c(rep(1,5), rep(0,95))))
+    covariates <- data.frame(Envir=rnorm(100), Age=rnorm(100,60,5))
+    exD <- list(Y=phenotype, G=genotype, X=covariates)
+     aGE(Y=exD$Y, G=exD$G, cov=exD$X, model='binomial', nonparaE=F, stepwise=F)  
+     aGE.joint(Y=exD$Y, G=exD$G, cov=exD$X, model='binomial', nonparaE=T, DF=5, method='Simulation') 
+```
+
+The stepwise option in aGE function is suggested for real-data GxE analysis, where a high genome-wide significant level is required. It performs Monte Carlo method with the number of permutation (B) equals 1,000 and then increase B gradually if small p-values are observed. 
+
